@@ -1,0 +1,93 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+
+\title{Leapfrogging Vortices Report}
+\author{Wesley Holt}
+\date{April 30, 2020}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+A vortex ring is a torus-shaped vortex in a fluid where the fluid spins around a circular, closed-loop, imaginary axis. As this happens, the entire "ring" moves forward as well.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1.5in]{vortexring.jpg}
+\caption{A visualization of a vortex ring.}
+\label{fig:vortexring}
+\end{figure}
+
+\footnotesize
+Source: https://skullsinthestars.com/2012/08/28/physics-demonstrations-vortex-cannon
+
+\vspace{.25in}
+
+\normalsize
+If timed correctly, one can have "leapfrogging" vortices by putting one vortex ring right behind another. These vortex rings move in the same direction, with the back vortex ring periodically surpassing the front vortex ring (hence, the "leapfrogging" effect). In this report, we will study the motion of leapfrogging vortices by creating at a 2D simulation of this phenomenon.
+
+\section{Methods}
+
+Each of these vortex rings produces a velocity field that acts on both itself and the other vortex ring. This is what propels the vortex rings forward. The simplified 2D simulation of leapfrogging vortices is accomplished by imagining a plane cutting through the two vortex rings, as shown in figure 1 below. Each vortex ring intersects the plane at two points. Each of these points represents a 2D vortex. 
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1.5in]{vortices}
+\caption{A pair of leapfrogging vortices.}
+\label{fig:vortices}
+\end{figure}
+
+The tangential velocity of the flow around a vortex is given by:
+\begin{equation}
+V_\theta = \frac{\Gamma}{2 \pi r}
+\end{equation}
+$\Gamma$ is the circulation, or strength of the vortex, and $r$ is the distance from the vortex center. I used the vector form of equation (1), which is given by:
+\begin{equation}
+    \vec{V}= \frac{\vec{\Gamma} \times \vec{r}}{2 \pi r^2}
+\end{equation}
+
+To simulate the motion of these leapfrogging vortices, I discretized the motion path of the 2D vortices. I assumed a linear motion path during each discrete time interval. My method for tracing out the motion path can be summarized by the following steps:
+\begin{enumerate}
+    \item \textbf{Find the distance, $\vec{r}$, between each vortex at a certain point in time.}
+    \item \textbf{Find the velocity, $\vec{V}$, of each vortex at that point in time.} This was accomplished by individually computing the velocity of each vortex induced by every other vortex using equation (2). The total velocity of a vortex is then just the sum of all the computed induced velocities on that vortex.
+    \item \textbf{Find the approximate displacement, $\Delta \vec{x}$, of each vortex over one time interval.} This is done by using the equation $\Delta \vec{x} = \vec{V} \Delta t $, where $\Delta t$ is the time interval length.
+    \item \textbf{Update the positions, $\vec{x}$, of each vortex.} Use $\vec{x}_{new} = \vec{x}_{old} + \Delta \vec{x}$.
+    \item \textbf{Repeat steps 1 through 4.} Stop when the traced-out path of motion is satisfactory.
+\end{enumerate}
+
+\section{Results}
+
+I used a time interval length of $\Delta t = 0.01$, a starting distance between vortices of $d = 1.0$, and a vortex strength of $\Gamma = [0,0,1]^\top$. The simulated 2D path of the leapfrogging vortices with 4000 time steps is shown below.
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=4.5in]{leapfroggingvorticespath}
+\caption{A 2D simulation showing the path of two leapfrogging vortices. The two colors, blue and red, represent the two different vortex rings.}
+\label{fig:leapfroggingvorticespath}
+\end{figure}
+
+\vspace{.15in}
+
+As seen in figure (1), the two vortex rings start at the left of the figure and progressively move to the right, leapfrogging each other along the way. When the vortex rings surpass
+
+\begin{figure}[htb]
+\centering
+\includegraphics[width=4.5in]{leapfrogvorticesvelocity}
+\caption{Velocity vs. x-displacement for each of the two vortex rings, blue and red.}
+\label{fig:leapfroggingvorticesvelocity}
+\end{figure}
+
+\vspace{.15in}
+
+Figure 4 below shows how the forward velocity of the vortex rings in the $x$-direction change as they leapfrog one another. 
+
+\vspace{2.6in}
+
+We see that the vortex rings are traveling the fastest when they are \emph{surrounded} by the other ring, and they are traveling the slowest when they are \emph{surrounding} the other ring. In other words, the maximum and minimum velocities occur in the moment when one ring surpasses the other (i.e. right when they "leapfrog"). This is to be expected, since that is the moment when each velocity vector from the different velocity fields is pointing exactly in the $x$- or negative $x$-direction for each vortex.
+
+
+\end{document}
