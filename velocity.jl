@@ -2,6 +2,13 @@
 
 velocity(coordinates, gamma)
 
+INPUTS
+coordinates: 3x4 array of the xyz-coordinates, with each column corresponding to a different point
+gamma: 3x4 array of the vortex circulation vectors, with each column corresponding to a different point
+
+OUTPUTS
+3x4 array of the velocity vectors, with each column corresponding to a different point
+
 """
 
 function velocity(coordinates, gamma)

@@ -8,7 +8,7 @@
     include("velocity.jl")
 
 #---INPUT PARAMETERS---
-    gamma = [0 0 0 0; 0 0 0 0; -1 1 1 -1]               # magnetic field vector, each column is for a different point
+    gamma = [0 0 0 0; 0 0 0 0; -1 1 1 -1]               # velocity field vector, each column is for a different point
     h = .01                                            # time step
     initialcoordinates = [0 0 1 1; -.5 .5 .5 -.5; 0 0 0 0] # starting point
 
@@ -24,7 +24,7 @@
     end
 
 #---PLOT THE RESULT---
-    plot(coordinates[1,1,:], coordinates[2,1,:], title = "Leapfrogging Vortices in 2D", legend = false, tickfontsize = 10, color = :blue, linewidth = 3)
+    plot(coordinates[1,1,:], coordinates[2,1,:], title = "Leapfrogging Vortex Rings", legend = false, tickfontsize = 10, color = :blue, linewidth = 3, size = (600,200))#,  xlim = (0,12), ylim = (-0.85, 0.85), size = (600,200))
     plot!(coordinates[1,2,:], coordinates[2,2,:], color = :blue, linewidth = 3)
     plot!(coordinates[1,3,:], coordinates[2,3,:], color = :red, linewidth = 3)
     plot!(coordinates[1,4,:], coordinates[2,4,:], color = :red, linewidth = 3)
@@ -41,4 +41,4 @@
     #     plot!(coordinates[1,4,1:i], coordinates[2,4,1:i], color = :red, linewidth = 1)
     #     plot!([coordinates[1,1,i];coordinates[1,2,i]],[coordinates[2,1,i]; coordinates[2,2,i]], color = :blue, linewidth = 10)
     #     plot!([coordinates[1,3,i];coordinates[1,4,i]],[coordinates[2,3,i]; coordinates[2,4,i]], color = :red, linewidth = 10)
-    # end every 25
+    # end every 20
